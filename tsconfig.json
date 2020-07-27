@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "esnext.asynciterable", "dom"],
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "declarationDir": "dist/types",
+    "declaration": true,
+    "types": ["@types/jest", "@types/node"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
