@@ -1,4 +1,10 @@
-import { capture, captureInclude, cwc } from '../src';
+import {
+  capture,
+  captureInclude,
+  cwc,
+  captureDelete,
+  captureDetail,
+} from '../src';
 
 export const text = `<body>
 <!-- libs-begin -->
@@ -21,7 +27,7 @@ export const text = `<body>
 
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
-<body>
+</body>
 `;
 
 export const tests = {
@@ -65,7 +71,7 @@ export const tests = {
       result: [' libs-end ', ' libs-end '],
     },
     {
-      name: 'test option with checkfn, verbose',
+      name: 'test option with checkfn, detail',
       process: () => {
         return capture(text, {
           head: '<!--',
@@ -73,7 +79,7 @@ export const tests = {
           checkfn: (s) => {
             return s.trim() === 'middle';
           },
-          verbose: true,
+          detail: true,
         });
       },
       result: [
@@ -112,6 +118,32 @@ export const tests = {
       ],
     },
     {
+      name: 'test captureDetail',
+      process: () => {
+        return captureDetail(text, '<!--', '-->', (s) => {
+          return s.trim() === 'middle';
+        });
+      },
+      result: [
+        {
+          capture: ' middle ',
+          includeCapture: '<!-- middle -->',
+          left: 188,
+          right: 196,
+          includeLeft: 184,
+          includeRight: 199,
+        },
+        {
+          capture: ' middle ',
+          includeCapture: '<!-- middle -->',
+          left: 417,
+          right: 425,
+          includeLeft: 413,
+          includeRight: 428,
+        },
+      ],
+    },
+    {
       name: 'test exception',
       process: () => {
         return capture(text, {
@@ -131,20 +163,12 @@ export const tests = {
       process: () => {
         return cwc(
           text,
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-begin';
-            },
-          },
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-end';
-            },
-          }
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-begin';
+          }),
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-end';
+          })
         );
       },
       result: [
@@ -169,20 +193,12 @@ export const tests = {
       process: () => {
         return cwc(
           text,
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-begin';
-            },
-          },
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-end';
-            },
-          },
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-begin';
+          }),
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-end';
+          }),
           () => false,
           true
         );
@@ -194,20 +210,12 @@ export const tests = {
       process: () => {
         return cwc(
           text,
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-begin';
-            },
-          },
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-end';
-            },
-          },
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-begin';
+          }),
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-end';
+          }),
           undefined,
           true
         );
@@ -232,24 +240,16 @@ export const tests = {
       ],
     },
     {
-      name: 'test verbose',
+      name: 'test detail',
       process: () => {
         return cwc(
           text,
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-begin';
-            },
-          },
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'libs-end';
-            },
-          },
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-begin';
+          }),
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'libs-end';
+          }),
           undefined,
           false,
           true
@@ -309,23 +309,39 @@ export const tests = {
       process: () => {
         return cwc(
           text,
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'anchor2';
-            },
-          },
-          {
-            head: '<!--',
-            tail: '-->',
-            checkfn: (s) => {
-              return s.trim() === 'anchor1';
-            },
-          }
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'anchor2';
+          }),
+          captureDetail(text, '<!--', '-->', (s) => {
+            return s.trim() === 'anchor1';
+          })
         );
       },
       result: [],
     },
   ],
+  d: [
+    {
+      name: 'test head, tail',
+      process: () => {
+        return captureDelete(text, '<!--', '-->');
+      },
+      result:
+        '%3Cbody%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
+    },
+    {
+      name: 'test head, tail, checkfn',
+      process: () => {
+        return captureDelete(
+          text,
+          capture(text, { head: '<!--', tail: '-->', detail: true })
+        );
+      },
+      result:
+        '%3Cbody%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
+    },
+  ],
 };
+
+// captureDelete(text, '<!--', '-->');
+// console.log(captureDetail(text, '<!--', '-->'));
