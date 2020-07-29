@@ -10,13 +10,15 @@
   ],
   "main": "dist/cjs/capture-string.cjs.js",
   "module": "dist/esm/capture-string.esm.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "jest",
     "build:js": "rollup -c",
-    "build": "tsc --noEmit && eslint --ext .ts,.js ./src && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "tsc --noEmit && eslint --ext .ts,.js ./src && npm run build:js && npm run build:types",
     "np": "np",
     "lint:staged": "lint-staged"
   },
