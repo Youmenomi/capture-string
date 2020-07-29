@@ -327,7 +327,7 @@ export const tests = {
         return captureDelete(text, '<!--', '-->');
       },
       result:
-        '%3Cbody%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
+        '%3Cbody%3E%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%0A%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
     },
     {
       name: 'test head, tail, checkfn',
@@ -338,10 +338,7 @@ export const tests = {
         );
       },
       result:
-        '%3Cbody%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
+        '%3Cbody%3E%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22A.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22B.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22C.js%22%3E%3C/script%3E%0A%0A%0A%0A%0A%0A%0A%3Cscript%20type=%22text/javascript%22%20src=%22D.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22E.js%22%3E%3C/script%3E%0A%3Cscript%20type=%22text/javascript%22%20src=%22F.js%22%3E%3C/script%3E%0A%0A%0A%0A%0A%0A%3Cnoscript%3EYou%20need%20to%20enable%20JavaScript%20to%20run%20this%20app.%3C/noscript%3E%0A%3Cdiv%20id=%22root%22%3E%3C/div%3E%0A',
     },
   ],
 };
-
-// captureDelete(text, '<!--', '-->');
-// console.log(captureDetail(text, '<!--', '-->'));

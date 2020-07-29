@@ -17,12 +17,14 @@
     "test": "jest",
     "build:js": "rollup -c",
     "build": "tsc --noEmit && eslint --ext .ts,.js ./src && npm run build:js",
-    "np": "np"
+    "np": "np",
+    "lint:staged": "lint-staged"
   },
   "lint-staged": {
-    "*.{ts,js,vue}": [
-      "eslint",
-      "jest"
+    "*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
     ]
   },
   "husky": {

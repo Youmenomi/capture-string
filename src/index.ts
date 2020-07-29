@@ -192,7 +192,7 @@ export function captureDelete(
   let d = 0;
   details.forEach((detail) => {
     const { includeLeft, includeRight } = detail;
-    r += text.slice(0, includeLeft - d - 1);
+    r += text.slice(0, includeLeft - d);
     text = text.slice(includeRight - d, -1);
     d = includeRight;
   });
