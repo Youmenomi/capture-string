@@ -6,7 +6,8 @@
     "capture",
     "string",
     "text",
-    "search"
+    "search",
+    "typescript"
   ],
   "main": "dist/cjs/capture-string.cjs.js",
   "module": "dist/esm/capture-string.esm.js",
@@ -19,8 +20,7 @@
     "build:js": "rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "tsc --noEmit && eslint --ext .ts,.js ./src && npm run build:js && npm run build:types",
-    "np": "np",
-    "lint:staged": "lint-staged"
+    "np": "np"
   },
   "lint-staged": {
     "*.{ts,js}": [
@@ -54,7 +54,6 @@
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "@types/defaults": "^1.0.3",
     "@types/jest": "^26.0.3",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
@@ -73,6 +72,6 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "defaults": "^1.0.3"
+    "custom-defaults": "0.0.2"
   }
 }
